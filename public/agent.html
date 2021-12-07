@@ -1,0 +1,80 @@
+<html>
+<head>
+<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<style>
+#agent{
+   border-style: solid;
+   border-width: 5px;
+    width: 40vw;
+    height: 30vw;
+    
+    position: absolute;
+    margin-left: 8px;
+    margin-top:8px;
+}
+
+#customer{
+   border-style: solid;
+   border-width: 5px;
+    width: 40vw; 
+    height: 30vw;
+    
+    position: absolute;
+    left: 50%;
+     margin-top:8px;
+}
+
+#controls{
+    top:31vw;
+    position: absolute;
+    left:50%;
+}
+    
+#bottombar{
+    position: absolute;
+    bottom: 0;
+    height:50px;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+}
+#laser{
+    position: absolute;
+    width:5px;
+    height: 5px;
+    background: red;
+    z-index: 999;
+} 
+.btn{
+margin-top:5px;        
+}
+</style>
+</head>
+<body style="margin:0px">
+<div id="laser" style="visibility:hidden"></div>
+<div id="agent">
+
+</div>
+<div id="customer">
+    <div id="qr" style="width:100%;height:100%;margin-top:25px;text-align: center">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://b3c3-2406-b400-d4-f690-f587-fea9-714b-bcae.ngrok.io/customer.html?room=test"/><br/><br/>
+        Scan to join as customer
+    </div>
+</div>
+<div id="controls">
+    <button id="zoomInBtn"><img style="width:40px;height:40px" src="img/zoomin.png"/></button>
+    <button id="zoomOutBtn"><img style="width:40px;height:40px" src="img/zoomout.png"/></button>
+    <button id="zoomResetBtn"><img style="width:40px;height:40px" src="img/reset.png"/></button>
+    <button id="pointerOn" style="display:none"><img style="width:40px;height:40px" src="img/pointeron.png"/></button>
+    <button id="pointerOff" ><img style="width:40px;height:40px" src="img/pointeroff.png"/></button>
+</div>
+<div id="bottombar">
+     <button id="start" class="btn"><img src="img/call.png" style="width:40px"/></button>
+    <button id="stop" class="btn" style="display: none"><img src="img/hangup.png" style="width:40px"/></button>
+    <button id="mute" class="btn"><img src="img/unmute.png" style="width:40px"/></button>
+    <button id="unmute" class="btn" style="display: none"><img src="img/mute.png" style="width:40px"/></button>
+    <button id="cyclecamera" class="btn"><img src="img/cyclecamera.png" style="width:40px"/></button>
+</div>
+</body>
+<script src="js/agent.js"></script>
+</html>
