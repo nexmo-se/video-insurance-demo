@@ -13,6 +13,31 @@ var ZOOM_INCREMENT_PX = 50;
 
 var elSubscribersId = "customer";
 var elPublisherId = "agent"
+var room = undefined;
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return undefined;
+    console.log('Query variable %s not found', variable);
+}
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
+
 
     document.addEventListener('mouseup',function(){
         clicking = false;
@@ -180,7 +205,14 @@ document.getElementById("unmute").addEventListener('click', function(){
 
 async function fetchCredentials() {
   const urlParams = new URLSearchParams(window.location.search);
-  const room = urlParams.get('room');
+
+  if(getQueryVariable("ref") !== undefined){
+        var obj = parseJwt(getQueryVariable("ref"));
+        room = obj.userid;
+  }
+  else if(getQueryVariable("room") !== undefined){
+          room = getQueryVariable("room");
+  }
 
   if(room === undefined || room === "" || room == null){
       const message = "room name missing";
@@ -191,6 +223,9 @@ async function fetchCredentials() {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
   }
+
+  let url = window.location.protocol+"//"+window.location.hostname+window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'))+"/customer.html?room="+room;
+  document.getElementById("qrimg").src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+url;
   const cred = await response.json();
   return cred;
 }
