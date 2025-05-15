@@ -9,11 +9,12 @@ Agent uses desktop and customer uses mobile phone.
 
 1. Sign-up for Vonage API Dashboard Account to use Vonage Unified Video API.
 3. Stand Alone: 
-    * Create an Application and activate Video.
+    * Create an Application in Vonage Dashbaord and activate Video.
     * Add your Application ID and RSA Key an ENV using API_APPLICATION_ID and PRIVATE_KEY
 4. Cloud Runtime
     * Create a Cloud Runtime Starter and copy the files or use the Github repro
     * Active the Video function in the VCR Application
+    * delete the package-lock.json and run in the terminal "npm install" to get all dependencies.
 3. Join as agent at https://yourdomain/agent.html?room=room-name
 4. Connect to the video call.
 5. Customer can open the link https://yourdomain/customer.html?room=room-name
